@@ -56,13 +56,18 @@ labels_to_factors <- function(df) {
   df %>% mutate(activity = factor(activity, levels = labels$id, labels = labels$label))
 }
 
+##
+## Average all variables grouped by activity and subject
+##
+produce_averages <- function(df) {
+  df %>% 
+    group_by(activity, subject) %>% 
+    summarise_all(mean)
+}
 download_data()
 
 har_df <- read_data() %>%  ## Solution to requests (1) and (4)
   extract_mean_sd() %>%    ## Solution to request (2)
   labels_to_factors()      ## Solution to request (3)
 
-## Solution to request (5)
-averages <- har_df %>% 
-  group_by(activity, subject) %>% 
-  summarise(mean)
+averages <- produce_averages(har_df) ## Solution to request (5)
