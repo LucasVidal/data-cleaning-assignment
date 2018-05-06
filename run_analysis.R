@@ -56,7 +56,8 @@ labels_to_factors <- function(df) {
   df %>% mutate(activity = factor(activity, levels = labels$id, labels = labels$label))
 }
 
-# download_data()
+download_data()
+
 har_df <- read_data() %>%  ## Solution to requests (1) and (4)
   extract_mean_sd() %>%    ## Solution to request (2)
   labels_to_factors()      ## Solution to request (3)
